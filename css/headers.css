@@ -1,0 +1,7 @@
+header {
+    &.portfolio {
+        h1 {
+            color: var(--accent);
+        }
+    }
+}
