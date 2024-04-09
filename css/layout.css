@@ -2,3 +2,9 @@
     --nav-height: 3rem;
     --margin: 10%;
 }
+
+@media (width >= 1000px) {
+    :root {
+        --margin: 20%;
+    }
+}

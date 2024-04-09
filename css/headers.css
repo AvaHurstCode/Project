@@ -10,4 +10,15 @@ header {
             color: var(--accent);
         }
     }
+    &.home {
+        height: max(75svh, 26em);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        h1 {
+            color: var(--accent);
+        }
+    }
 }

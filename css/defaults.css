@@ -1,8 +1,9 @@
 :root {
     --h-scalar: 1.618;
+    --img-radius: 0rem;
 }
 
-* {
+html {
     font-family: poppins;
 }
 
