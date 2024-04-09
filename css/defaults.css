@@ -2,6 +2,10 @@
     --h-scalar: 1.618;
 }
 
+* {
+    font-family: poppins;
+}
+
 h1 {
     font-size: calc(1rem*var(--h-scalar)*var(--h-scalar)*var(--h-scalar)*var(--h-scalar));
 }
@@ -32,4 +36,14 @@ body {
 
 a {
     text-decoration: none;
+    color: var(--text-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    font-style: italic;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

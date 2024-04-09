@@ -4,6 +4,9 @@ section {
     padding-top: 1rem;
     &.description {
         color: var(--text-light);
+        p {
+            padding: 1rem 0 1rem 0;
+        }
     }
     &.image {
         h5 {
