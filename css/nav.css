@@ -1,0 +1,27 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-30);
+    height: var(--nav-height);
+    color: var(--text-light);
+    .logo {
+        margin-left: var(--margin)
+    }
+    ul {
+        display: flex;
+        gap: 1rem;
+        li {
+            width: 5rem;
+            a {
+                color: var(--text-light);
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    .account {
+        display: flex;
+        margin-right: var(--margin);
+    }
+}

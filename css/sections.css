@@ -1,5 +1,13 @@
 section {
+    margin-left: var(--margin);
+    margin-right: var(--margin);
+    padding-top: 1rem;
     &.description {
         color: var(--text-light);
+    }
+    &.image {
+        h5 {
+            color: var(--text-light);
+        }
     }
 }

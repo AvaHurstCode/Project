@@ -1,5 +1,11 @@
 header {
     &.portfolio {
+        height: 20rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
         h1 {
             color: var(--accent);
         }
