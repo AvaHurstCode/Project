@@ -32,4 +32,50 @@ section {
             margin-bottom: var(--spacing-s);
         }
     }
+    &.login {
+        color: var(--text-light-gray);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100svh;
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            label {
+                margin-bottom: var(--spacing-xs);
+            }
+            input {
+                margin-bottom: var(--spacing-m);
+            }
+            button {
+                margin-bottom: var(--spacing-xs);
+            }
+        }
+    }
+    &.signup {
+        color: var(--text-light-gray);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100svh;
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            label {
+                margin-bottom: var(--spacing-xs);
+            }
+            input {
+                margin-bottom: var(--spacing-m);
+            }
+            button {
+                margin-bottom: var(--spacing-xs);
+            }
+        }
+    }
 }
