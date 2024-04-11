@@ -12,5 +12,9 @@ app.listen(3030, () => {
 })
 
 app.get("/", (req, res) => {
-    res.send('hello world')
+    res.render('index')
+})
+
+app.get("/portfolio", (req, res) => {
+    res.render('portfolio')
 })
