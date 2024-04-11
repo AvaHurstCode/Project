@@ -1,6 +1,14 @@
 header {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
     .background-img {
-        position: relative;
+        position: absolute;
+        min-height: 100%;
+        max-width: unset;
+        aspect-ratio: 16/9;
+        filter: blur(0.5rem) brightness(40%) grayscale(0.4);
+        z-index: -1;
     }
     &.portfolio {
         height: 20rem;
@@ -8,9 +16,12 @@ header {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: white;
-        h1 {
+        .title {
             color: var(--accent);
+            margin-bottom: var(--spacing-s);
+        }
+        .subtitle {
+            color: var(--text-light);
         }
     }
     &.home {
@@ -21,11 +32,12 @@ header {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: white;
         .title {
+            color: var(--accent);
             margin-bottom: var(--spacing-s);
         }
         .subtitle {
+            color: var(--text-light);
             margin-bottom: var(--spacing-l);
         }
     }

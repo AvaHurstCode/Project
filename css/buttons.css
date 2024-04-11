@@ -16,8 +16,8 @@
             border: solid 0.25rem var(--accent);
         }
         a:hover {
-            color: black;
-            border: solid 0.25rem black;
+            color: var(--text-light);
+            border: solid 0.25rem var(--text-light);
         }
     }
 }

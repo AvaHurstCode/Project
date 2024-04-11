@@ -1,12 +1,13 @@
 :root {
     --h: 205;
     --s: 90%;
-    --l: 35%;
-    --sep: -180;
+    --l: 0%;
+    --sep: -60;
     --primary-60: hsl(var(--h),var(--s),var(--l));
     --primary-30: hsl(var(--h),calc(var(--s) * 0.5),calc(var(--l) * 0.5));
-    --accent: hsl(calc(var(--h) - var(--sep)), var(--s), calc(100% - var(--l)));
+    --accent: hsl(calc(var(--h) - var(--sep)), var(--s), calc(80% - var(--l)));
     --text-primary: hsl(0, 0, 0);
     --text-accent: var(--accent);
     --text-light: hsl(0, 0%, 100%);
+    --text-light-gray: hsl(0, 0%, 60%);
 }
