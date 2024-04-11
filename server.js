@@ -11,7 +11,7 @@ app.listen(3030, () => {
     console.log("Listening on port 3030")
 })
 
-app.get("/", (req, res) => {
+app.get(["/", "/index"], (req, res) => {
     res.render('index')
 })
 
