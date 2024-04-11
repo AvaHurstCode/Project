@@ -1,4 +1,5 @@
 nav {
+    z-index: 10;
     position: sticky;
     top: 0;
     display: flex;
@@ -7,7 +8,9 @@ nav {
     background-color: var(--primary-30);
     height: var(--nav-height);
     color: var(--text-light);
+    transition: all 0.25s;
     .logo {
+        font-size: 2rem;
         margin-left: var(--margin)
     }
     ul {
@@ -25,6 +28,10 @@ nav {
                 justify-content: center;
                 height: 100%;
                 width: 100%;
+                transition: all 0.25s;
+            }
+            a:hover {
+                color: var(--text-light);
             }
         }
     }

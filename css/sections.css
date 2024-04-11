@@ -1,6 +1,6 @@
 section {
     &.top {
-        margin-top: var(--spacing-s);
+        margin-top: var(--spacing-l);
     }
     &.bottom {
         margin-bottom: var(--spacing-m);
