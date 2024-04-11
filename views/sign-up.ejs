@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('includes/head.ejs', {title: "Sign Up"}) %>
+    </head>
+<body>
+    <main>
+        <section class="signup">
+            <form id="signup">
+                <label>login</label>
+                <input type="text" name="login"/>
+                <label>Password</label>
+                <input type="password" name="password">
+                <button>Sign Up</button>
+            </form>
+        </section>
+
+        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js" defer></script>
+        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
+
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBlHTQRlrJCPEYBCVknIHgywurMu2byBeo",
+                    authDomain: "refmanager-3dc90.firebaseapp.com",
+                    projectId: "refmanager-3dc90",
+                    storageBucket: "refmanager-3dc90.appspot.com",
+                    messagingSenderId: "905391770686",
+                    appId: "1:905391770686:web:141e3b5dbb1fa13363156f"
+                };
+        
+                firebase.initializeApp(firebaseConfig);
+        
+                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+        
+                document
+                    .getElementById("signup")
+                    .addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        const login = event.target.login.value;
+                        const password = event.target.password.value;
+        
+                        firebase
+                            .auth()
+                            .createUserWithEmailAndPassword(login, password)
+                            .then(({ user }) => {
+                                return user.getIdToken().then((idToken) => {
+                                    return fetch("/sessionLogin", {
+                                        method: "POST",
+                                        headers: {
+                                            Accept: "application/json",
+                                            "Content-Type": "application/json",
+                                            "CSRF-Token": Cookies.get("CSRF-TOKEN"),
+                                        },
+                                        body: JSON.stringify({ idToken }),
+                                    });
+                                });
+                            })
+                            .then(() => {
+                                return firebase.auth().signOut();
+                            })
+                            .then(() => {
+                                console.log("User created and signed in successfully");
+                                window.location.assign("/profile");
+                            })
+                            .catch((error) => {
+                                console.error("Error creating user:", error);
+                                // Handle error appropriately, e.g., display error message to the user
+                            });
+                    });
+        
+                return false; // Move this inside the event listener callback function
+            });
+        </script>
+    </main>
+</body>
+</body>
+</html>
