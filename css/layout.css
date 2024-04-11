@@ -1,6 +1,14 @@
 :root {
     --nav-height: 3rem;
     --margin: 10%;
+
+    --spacing-scalar: 2;
+    --spacing-xs: 0.25rem;
+    --spacing-s: calc(0.25rem * var(--spacing-scalar));
+    --spacing-s: calc(0.25rem * var(--spacing-scalar) * var(--spacing-scalar));
+    --spacing-m: calc(0.25rem * var(--spacing-scalar) * var(--spacing-scalar) * var(--spacing-scalar));
+    --spacing-l: calc(0.25rem * var(--spacing-scalar) * var(--spacing-scalar) * var(--spacing-scalar) * var(--spacing-scalar));
+    --spacing-xl: calc(0.25rem * var(--spacing-scalar) * var(--spacing-scalar) * var(--spacing-scalar) * var(--spacing-scalar) * var(--spacing-scalar));
 }
 
 @media (width >= 1000px) {
