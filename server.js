@@ -57,10 +57,11 @@ app.get("/profile", (req, res) => {
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true /* checkRevoked */)
-        .then(() => {
-            res.render("profile")
+        .then((data) => {
+            res.render("profile", {userData: data})
         })
         .catch((error) => {
+            console.log(error)
             res.redirect("/login");
         })
 })

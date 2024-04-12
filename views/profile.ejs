@@ -4,8 +4,10 @@
     <%- include("includes/head", {title: "profile"}) %>
 </head>
 <body>
-    <header>
+    <%- include("includes/nav") %>
+    <header class="profile">
         <h1>Profile</h1>
+        <h3>for <%=userData.email%></h3>
     </header>
     <main>
         <p>This page is private</p>

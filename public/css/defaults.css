@@ -13,14 +13,17 @@ h1 {
 }
 
 h2 {
+    color: var(--text-light);
     font-size: calc(1rem*var(--h-scalar)*var(--h-scalar)*var(--h-scalar));
 }
 
 h3 {
+    color: var(--text-light);
     font-size: calc(1rem*var(--h-scalar)*var(--h-scalar));
 }
 
 h4 {
+    color: var(--text-light);
     font-size: calc(1rem*var(--h-scalar));
 }
 
