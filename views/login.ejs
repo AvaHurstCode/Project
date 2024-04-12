@@ -54,7 +54,7 @@
                                             "Content-Type": "application/json",
                                             "CSRF-Token": Cookies.get("CSRF-TOKEN"),
                                         },
-                                        body: JSON.stringify({ idToken }),
+                                        body: JSON.stringify({ idToken, user }),
                                     });
                                 });
                             })

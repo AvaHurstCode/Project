@@ -3,6 +3,12 @@ import csrf from "csurf"
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
 import admin from "firebase-admin"
+import mongoose from "mongoose"
+import { User } from "./User"
+
+const mongoDB = "mongodb://localhost:27017/Project"
+
+mongoose.connect(mongoDB)
 
 const serviceAccount = require("./serviceAccountKey.json")
 
@@ -61,6 +67,7 @@ app.get("/profile", (req, res) => {
 
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString()
+    const firebase_user = req.body.user
 
     const expiresIn = 60 * 60 * 24 * 5 * 1000
 
@@ -72,11 +79,32 @@ app.post("/sessionLogin", (req, res) => {
                 const options = { maxAge: expiresIn, httpOnly: true }
                 res.cookie("session", sessionCookie, options)
                 res.end(JSON.stringify({ status: "success" }))
+                
+                let query = { firebase_id: firebase_user.uid.toString() },
+                    update = {
+                        firebase_id: firebase_user.uid.toString(),
+                        email: firebase_user.email.toString()
+                    },
+                    mongoOptions = {
+                        upsert: true
+                    }
+                
+                User.findOneAndUpdate(query, update, options)
+                    .then((result) => {
+                        if(!result) {
+                            result = new User({
+                                firebase_id: firebase_user.uid.toString(),
+                                email: firebase_user.email.toString()
+                            })
+                        }
+                        result.save()
+                    })
             },
             (error) => {
                 res.status(401).send("UNAUTHORIZED REQUEST!")
             }
         )
+
 })
 
 app.get("/sessionLogout", (req, res) => {
