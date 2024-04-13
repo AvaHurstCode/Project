@@ -20,15 +20,26 @@
         document
             .getElementById("newProject")
             .addEventListener("submit", (event) => {
-                event.preventDefault();
-                return fetch("/newProject", {
+                event.preventDefault()
+            
+                let form = document.getElementById("newProject")
+                let formData = new FormData(form)
+                let jsonData = {}
+                formData.forEach((value, key) => { jsonData[key] = value })
+                jsonData.public = form.querySelector('input[name="public"]').checked
+
+                fetch("/newProject", {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
                         "CSRF-Token": Cookies.get("CSRF-TOKEN"),
-                    }
-                });
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                    .then((response) => {
+                        window.location.href = response.url
+                    })
             })
     </script>
 </body>

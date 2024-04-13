@@ -29,14 +29,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 app.use(cookieParser())
-/*
+
 app.use(csrfMiddleware)
 
 app.all("*", (req, res, next) => {
     res.cookie("CSRF-TOKEN", req.csrfToken())
     next()
 })
-*/
+
 
 app.get(["/", "/index"], (req, res) => {
     res.render('index')
@@ -89,7 +89,6 @@ app.get("/editor/:projectId", (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then((user) => {
-            console.log(user)
             User
                 .findOne({firebase_id: user.uid})
                 .then((mongoUser) => {
@@ -97,9 +96,8 @@ app.get("/editor/:projectId", (req, res) => {
                     Project
                         .findOne(req.params.id)
                         .then((project) => {
-                            console.log(project)
-                            if(project.userId === mongoUser.id) {
-                                res.render("project", {projectData: project})
+                            if(project.userId.toString() == mongoUser.id) {
+                                res.status(303).render("project", {projectData: project})
                             }
                         })
                         .catch((error) => {
@@ -174,11 +172,14 @@ app.post("/newProject", (req, res) => {
                 .then((mongoUser) => {
                     let project = new Project({
                         userId: mongoUser.id,
-                        title: req.body.title,
-                        description: req.body.description,
+                        title: req.body.projectTitle,
+                        description: req.body.projectDescription,
                         public: (req.body.public == "on")
                     })
                     project.save()
+                        .then((savedProject) => {
+                            res.redirect("/editor/"+savedProject.id)
+                        })
                 })
                 .catch((error) => {
                     console.log(error)
