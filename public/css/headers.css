@@ -52,5 +52,10 @@ header {
     &.browse {
         margin-left: var(--margin);
         margin-right: var(--margin);
+        height: 20rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
