@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <%- include("includes/head", {title: projectData.title}) %>
-</head>
+    <head>
+        <%- include('includes/head.ejs', {title: projectData.title}) %>
+    </head>
 <body>
-    hello world
+    <!--NAV-->
+    <%- include('includes/nav') %>
+    <!--HEADER-->
+    <header class="portfolio">
+        <img class="background-img" src="/images/VanOnBridge.jpeg" alt="">
+        <h1 class="title"><%= projectData.title %></h1>
+        <h4 class="subtitle"><%= projectData.description %></h4>
+    </header>
+    <!--MAIN-->
+    <main>
+        <section class="description top">
+            <h2>Lorem Ipsem</h2>
+            <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore expedita in temporibus quis veritatis dolorum. Totam reprehenderit eius deleniti quos rem nisi aliquam? Excepturi eos mollitia optio! Earum, qui id?
+            </p>
+        </section>
+    </main>
 </body>
 </html>

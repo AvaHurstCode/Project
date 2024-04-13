@@ -7,7 +7,7 @@
 <body>
     <%- include("includes/nav") %>
     <h1>New Project</h1>
-    <form id="newProject">
+    <form id="new-project">
         <label>Title:</label>
         <input type="text" value="Untitled Project 1" name="projectTitle" required>
         <label>Description:</label>
@@ -18,11 +18,11 @@
     </form>
     <script>
         document
-            .getElementById("newProject")
+            .getElementById("new-project")
             .addEventListener("submit", (event) => {
                 event.preventDefault()
             
-                let form = document.getElementById("newProject")
+                let form = document.getElementById("new-project")
                 let formData = new FormData(form)
                 let jsonData = {}
                 formData.forEach((value, key) => { jsonData[key] = value })
@@ -37,9 +37,9 @@
                     },
                     body: JSON.stringify(jsonData)
                 })
-                    .then((response) => {
-                        window.location.href = response.url
-                    })
+                .then((response) => {
+                    window.location.href = response.url
+                })
             })
     </script>
 </body>

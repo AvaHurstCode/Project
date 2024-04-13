@@ -78,4 +78,45 @@ section {
             }
         }
     }
+    &.editor-form {
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            label {
+                margin-bottom: var(--spacing-xs);
+            }
+            input {
+                margin-bottom: var(--spacing-m);
+            }
+            button {
+                margin-bottom: var(--spacing-xs);
+            }
+        }
+    }
+    &.browse {
+        .card-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            justify-content: center;
+            align-items: center;
+            justify-items: center;
+            li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 7rem;
+                .img-container {
+                    width: 6.5rem;
+                    height: 6.5rem;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
 }

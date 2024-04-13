@@ -3,7 +3,21 @@
     --img-radius: 0rem;
 }
 
+@media (width <= 1000px) {
+    :root {
+        --h-scalar:  1.45;
+    }
+}
+
+@media (width <= 700px) {
+    :root {
+        --h-scalar:  1.3;
+    }
+}
+
+
 html {
+    color: var(--text-light);
     font-family: poppins;
 }
 

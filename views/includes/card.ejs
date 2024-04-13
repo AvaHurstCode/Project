@@ -1,0 +1,14 @@
+<ul class="card-list">
+    <% console.log(projects) %>
+    <% for (let project of projects) { %>
+        <li>
+            <a href="/viewer/<%= project.id %>">
+                <div class="img-container">
+                    <img src="/images/VanByLake.jpeg" alt="placeholder image">
+                </div>
+                <h4><%= project.title %></h4>
+                <p><%= project.description%></p>
+            </a>
+        </li>
+    <% } %>
+</ul>

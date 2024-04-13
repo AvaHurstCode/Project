@@ -49,4 +49,8 @@ header {
         height: 20rem;
         justify-content: center;
     }
+    &.browse {
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+    }
 }

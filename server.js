@@ -29,14 +29,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 app.use(cookieParser())
-
+/*
 app.use(csrfMiddleware)
 
 app.all("*", (req, res, next) => {
     res.cookie("CSRF-TOKEN", req.csrfToken())
     next()
 })
-
+*/
 
 app.get(["/", "/index"], (req, res) => {
     res.render('index')
@@ -61,7 +61,7 @@ app.get("/profile", (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then((user) => {
-            res.render("profile", {user: user})
+            res.render("profile", { user: user })
         })
         .catch((error) => {
             res.redirect("/login");
@@ -75,7 +75,7 @@ app.get("/editor", (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then((user) => {
-            res.render("newProject", {user: user})
+            res.render("newProject", { user: user })
         })
         .catch((error) => {
             res.redirect("/login");
@@ -90,26 +90,74 @@ app.get("/editor/:projectId", (req, res) => {
         .verifySessionCookie(sessionCookie, true)
         .then((user) => {
             User
-                .findOne({firebase_id: user.uid})
+                .findOne({ firebase_id: user.uid })
                 .then((mongoUser) => {
-                    console.log(mongoUser)
                     Project
-                        .findOne(req.params.id)
+                        .findOne({ _id: req.params.projectId })
                         .then((project) => {
-                            if(project.userId.toString() == mongoUser.id) {
-                                res.status(303).render("project", {projectData: project})
+                            if(project) {
+                                if(project.userId.toString() == mongoUser.id) {
+                                    res.render("editor", {projectData: project})
+                                } else {
+                                    res.send("Unknown project")
+                                }
+                            } else {
+                                res.send("Unknown project")
                             }
                         })
                         .catch((error) => {
-                            console.log(error)
+                            console.error(error)
                         })
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 })
         })
         .catch((error) => {
             res.redirect("/login");
+        })
+})
+
+app.get("/viewer/:projectId", (req, res) => {
+    const sessionCookie = req.cookies.session || ""
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            User
+                .findOne({ firebase_id: user.uid })
+                .then((mongoUser) => {
+                    Project
+                        .findOne({ _id: req.params.projectId })
+                        .then((project) => {
+                            if(project.public == false) {
+                                if(project.userId.toString() == mongoUser.id) {
+                                    res.render("project", { projectData: project })
+                                } else {
+                                res.send("Unknown Project")
+                                }
+                            } else {
+                                res.render("project", { projectData: project })
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                        })
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        })
+        .catch((error) => {
+            res.redirect("/login");
+        })
+})
+
+app.get("/browse", (req, res) => {
+    Project.find({ public: true })
+        .then((projects) => {
+            res.render("browse", { projects: projects })
         })
 })
 
@@ -168,7 +216,7 @@ app.post("/newProject", (req, res) => {
         .verifySessionCookie(sessionCookie, true)
         .then((user) => {
             User
-                .findOne({firebase_id: user.uid})
+                .findOne({ firebase_id: user.uid })
                 .then((mongoUser) => {
                     let project = new Project({
                         userId: mongoUser.id,
@@ -182,10 +230,56 @@ app.post("/newProject", (req, res) => {
                         })
                 })
                 .catch((error) => {
-                    console.log(error)
+                    console.error(error)
                 })
         })
         .catch((error) => {
+            res.redirect("/login");
+        })
+})
+
+app.post("/updateProject/:projectId", (req, res) => {
+    const sessionCookie = req.cookies.session || ""
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            Project
+                .findOneAndUpdate(new mongoose.Types.ObjectId(req.params.projectId),
+                    {
+                        title: req.body.projectTitle,
+                        description: req.body.projectDescription,
+                        public: req.body.public
+                    })
+                .catch((error) => {
+                    console.error(error)
+                })
+        })
+        .catch((error) => {
+            console.error(error)
+            res.redirect("/login");
+        })
+})
+
+app.delete("/deleteProject/:projectId", (req, res) => {
+    const sessionCookie = req.cookies.session || ""
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            Project
+                .findOneAndDelete(new mongoose.Types.ObjectId(req.params.projectId))
+                .then(() => {
+                    res.redirect("/")
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        })
+        .catch((error) => {
+            console.error(error)
             res.redirect("/login");
         })
 })

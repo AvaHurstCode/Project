@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("includes/head", {title: "browse"}) %>
+</head>
+<body>
+    <header class="browse">
+        <h1>Browse projects</h1>
+    </header>
+    <main>
+        <section class="browse">
+            <%- include("includes/card", {projects: projects}) %>
+        </section>
+    </main>
+</body>
+</html>

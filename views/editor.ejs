@@ -1,18 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <%- include("includes/head", {title: "editor"}) %>
-</head>
+    <head>
+        <%- include('includes/head.ejs', {title: projectData.title}) %>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    </head>
 <body>
-    <%- include("includes/nav") %>
-    <h1>Editor</h1>
-    <form id="project">
-        <label>Title</label>
-        <input type="text" value="Untitled Project 1" name="projectTitle">
-        <label>Description</label>
-        <input type="text" name="projectDescription">
-        <label>Make public</label>
-        <input type="checkbox" name="projectVisible">
-    </form>
+    <!--NAV-->
+    <%- include('includes/nav') %>
+    <!--HEADER-->
+    <header class="portfolio">
+        <img class="background-img" src="/images/VanOnBridge.jpeg" alt="">
+        <h1 class="title"><%= projectData.title %></h1>
+        <h2 class="subtitle"><%= projectData.description%></div>
+    </header>
+    <!--MAIN-->
+    <main>
+        <section class="editor-form top">
+            <form id="editor-form">
+                <label>Project Title:</label>
+                <input type="text" name="projectTitle" value="<%= projectData.title %>">
+                <label>Project Description:</label>
+                <input type="text" name="projectDescription" value="<%= projectData.description %>">
+                <label>Make Public:</label>
+                <input type="checkbox" name="public" <% if (projectData.public) { %>checked<% }  %>>
+                <button>Update</button>
+            </form>
+            <form id="delete-request">
+                <button>Delete Project</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        document
+            .getElementById("editor-form")
+            .addEventListener("submit", (event) => {
+                event.preventDefault()
+            
+                let form = document.getElementById("editor-form")
+                let formData = new FormData(form)
+                let jsonData = {}
+                formData.forEach((value, key) => { jsonData[key] = value })
+                jsonData.public = form.querySelector('input[name="public"]').checked
+
+                fetch("/updateProject/<%= projectData.id %>", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "CSRF-Token": Cookies.get("CSRF-TOKEN"),
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                .then((response) => {
+                    window.location.href = response.url
+                })
+            })
+        document
+            .getElementById("delete-request")
+            .addEventListener("submit", (event) => {
+                event.preventDefault()
+            
+                let form = document.getElementById("delete-request")
+
+                fetch("/deleteProject/<%= projectData.id %>", {
+                    method: "DELETE",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "CSRF-Token": Cookies.get("CSRF-TOKEN"),
+                    }
+                })
+                .then((response) => {
+                    window.location.href = response.url
+                })
+            })
+    </script>
 </body>
 </html>
