@@ -7,11 +7,13 @@
     <%- include("includes/nav") %>
     <header class="profile">
         <h1>Profile</h1>
-        <h3>for <%=userData.email%></h3>
+        <h3>for <%=user.email%></h3>
     </header>
     <main>
-        <p>This page is private</p>
-        <a href="/sessionLogout">Log out</a>
+        <section>
+            <p>This page is private</p>
+            <a href="/sessionLogout">Log out</a>
+        </section>
     </main>
 </body>
 </html>

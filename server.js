@@ -5,6 +5,7 @@ import bodyParser from "body-parser"
 import admin from "firebase-admin"
 import mongoose from "mongoose"
 import { User } from "./User"
+import { Project } from "./Project"
 
 const mongoDB = "mongodb://localhost:27017/Project"
 
@@ -56,15 +57,62 @@ app.get("/profile", (req, res) => {
 
     admin
         .auth()
-        .verifySessionCookie(sessionCookie, true /* checkRevoked */)
-        .then((data) => {
-            res.render("profile", {userData: data})
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            res.render("profile", {user: user})
         })
         .catch((error) => {
-            console.log(error)
             res.redirect("/login");
         })
 })
+
+app.get("/editor", (req, res) => {
+    const sessionCookie = req.cookies.session || ""
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            res.render("newProject", {user: user})
+        })
+        .catch((error) => {
+            res.redirect("/login");
+        })
+})
+
+app.get("/editor/:projectId", (req, res) => {
+    const sessionCookie = req.cookies.session || ""
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            console.log(user)
+            User
+                .findOne({firebase_id: user.uid})
+                .then((mongoUser) => {
+                    console.log(mongoUser)
+                    Project
+                        .findOne(req.params.id)
+                        .then((project) => {
+                            console.log(project)
+                            if(project.userId === mongoUser.id) {
+                                res.render("project", {projectData: project})
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        })
+        .catch((error) => {
+            res.redirect("/login");
+        })
+})
+
 
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString()
@@ -75,34 +123,33 @@ app.post("/sessionLogin", (req, res) => {
     admin
         .auth()
         .createSessionCookie(idToken, { expiresIn })
-        .then(
-            (sessionCookie) => {
-                const options = { maxAge: expiresIn, httpOnly: true }
-                res.cookie("session", sessionCookie, options)
-                res.end(JSON.stringify({ status: "success" }))
-                
-                let query = { firebase_id: firebase_user.uid.toString() },
-                    update = {
-                        firebase_id: firebase_user.uid.toString(),
-                        email: firebase_user.email.toString()
-                    },
-                    mongoOptions = {
-                        upsert: true
+        .then((sessionCookie) => {
+            const options = { maxAge: expiresIn, httpOnly: true }
+            res.cookie("session", sessionCookie, options)
+            res.end(JSON.stringify({ status: "success" }))
+            
+            let query = { firebase_id: firebase_user.uid.toString() },
+                update = {
+                    firebase_id: firebase_user.uid.toString(),
+                    email: firebase_user.email.toString()
+                },
+                mongoOptions = {
+                    upsert: true
+                }
+            
+            User.findOneAndUpdate(query, update, mongoOptions)
+                .then((result) => {
+                    if(!result) {
+                        result = new User({
+                            firebase_id: firebase_user.uid.toString(),
+                            email: firebase_user.email.toString()
+                        })
                     }
-                
-                User.findOneAndUpdate(query, update, options)
-                    .then((result) => {
-                        if(!result) {
-                            result = new User({
-                                firebase_id: firebase_user.uid.toString(),
-                                email: firebase_user.email.toString()
-                            })
-                        }
-                        result.save()
-                    })
+                    result.save()
+                })
             },
             (error) => {
-                res.status(401).send("UNAUTHORIZED REQUEST!")
+                res.status(401).send("UNAUTHORIZED REQUEST!\n" + error)
             }
         )
 
@@ -111,6 +158,36 @@ app.post("/sessionLogin", (req, res) => {
 app.get("/sessionLogout", (req, res) => {
     res.clearCookie("session")
     res.redirect("/login")
+})
+
+app.post("/newProject", (req, res) => {
+    console.log("creating new project")
+    const sessionCookie = req.cookies.session || ""
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            console.log("finding user in database")
+            User
+                .findOne({firebase_id: user.uid})
+                .then((mongoUser) => {
+                    console.log("creating new project for user" + mongoUser)
+                    project = new Project({
+                        userId: mongoUser.id,
+                        title: req.body.title,
+                        description: req.body.description,
+                        public: req.body.public
+                    })
+                    project.save()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        })
+        .catch((error) => {
+            res.redirect("/login");
+        })
 })
 
 app.listen(PORT, () => {

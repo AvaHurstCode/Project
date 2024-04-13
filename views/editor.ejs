@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("includes/head", {title: "editor"}) %>
+</head>
+<body>
+    <%- include("includes/nav") %>
+    <h1>Editor</h1>
+    <form id="project">
+        <label>Title</label>
+        <input type="text" value="Untitled Project 1" name="projectTitle">
+        <label>Description</label>
+        <input type="text" name="projectDescription">
+        <label>Make public</label>
+        <input type="checkbox" name="projectVisible">
+    </form>
+</body>
+</html>

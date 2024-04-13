@@ -41,4 +41,12 @@ header {
             margin-bottom: var(--spacing-l);
         }
     }
+    &.profile {
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+        display: flex;
+        flex-direction: column;
+        height: 20rem;
+        justify-content: center;
+    }
 }
