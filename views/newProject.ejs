@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <%- include("includes/head", {title: "editor"}) %>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 </head>
 <body>
     <%- include("includes/nav") %>
     <h1>New Project</h1>
-    <form action="/newProject" method="post">
+    <form id="newProject">
         <label>Title:</label>
         <input type="text" value="Untitled Project 1" name="projectTitle" required>
         <label>Description:</label>
@@ -15,5 +16,20 @@
         <input type="checkbox" name="public">
         <button>Create Project</button>
     </form>
+    <script>
+        document
+            .getElementById("newProject")
+            .addEventListener("submit", (event) => {
+                event.preventDefault();
+                return fetch("/newProject", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "CSRF-Token": Cookies.get("CSRF-TOKEN"),
+                    }
+                });
+            })
+    </script>
 </body>
 </html>

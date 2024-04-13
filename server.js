@@ -29,12 +29,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 app.use(cookieParser())
+/*
 app.use(csrfMiddleware)
 
 app.all("*", (req, res, next) => {
     res.cookie("CSRF-TOKEN", req.csrfToken())
     next()
 })
+*/
 
 app.get(["/", "/index"], (req, res) => {
     res.render('index')
@@ -173,11 +175,11 @@ app.post("/newProject", (req, res) => {
                 .findOne({firebase_id: user.uid})
                 .then((mongoUser) => {
                     console.log("creating new project for user" + mongoUser)
-                    project = new Project({
+                    let project = new Project({
                         userId: mongoUser.id,
                         title: req.body.title,
                         description: req.body.description,
-                        public: req.body.public
+                        public: (req.body.public == "on")
                     })
                     project.save()
                 })
