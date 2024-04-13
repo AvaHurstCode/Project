@@ -23,6 +23,9 @@ header {
         .subtitle {
             color: var(--text-light);
         }
+        a {
+            margin-top: var(--spacing-s);
+        }
     }
     &.home {
         height: 75svh;
@@ -50,6 +53,7 @@ header {
         justify-content: center;
     }
     &.browse {
+        text-align: center;
         margin-left: var(--margin);
         margin-right: var(--margin);
         height: 20rem;
@@ -57,5 +61,13 @@ header {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    &.login-signup {
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10rem;
     }
 }

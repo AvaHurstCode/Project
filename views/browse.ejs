@@ -4,11 +4,12 @@
     <%- include("includes/head", {title: "browse"}) %>
 </head>
 <body>
+    <%- include("includes/nav") %>
     <header class="browse">
         <h1>Browse projects</h1>
     </header>
     <main>
-        <section class="browse">
+        <section class="browse top">
             <%- include("includes/card", {projects: projects}) %>
         </section>
     </main>

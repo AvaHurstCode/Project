@@ -9,6 +9,7 @@ nav {
     height: var(--nav-height);
     color: var(--text-light);
     transition: all 0.25s;
+    border-bottom: solid 1px var(--accent);
     .logo {
         font-size: 2rem;
         margin-left: var(--margin)

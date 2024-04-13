@@ -11,6 +11,9 @@
         <img class="background-img" src="/images/VanOnBridge.jpeg" alt="">
         <h1 class="title"><%= projectData.title %></h1>
         <h4 class="subtitle"><%= projectData.description %></h4>
+        <% if (owner) { %>
+        <a href="/editor/<%= projectData.id %>">Edit project</a>
+        <% } %>
     </header>
     <!--MAIN-->
     <main>

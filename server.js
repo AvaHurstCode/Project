@@ -133,12 +133,16 @@ app.get("/viewer/:projectId", (req, res) => {
                         .then((project) => {
                             if(project.public == false) {
                                 if(project.userId.toString() == mongoUser.id) {
-                                    res.render("project", { projectData: project })
+                                    res.render("project", { projectData: project, owner: true})
                                 } else {
                                 res.send("Unknown Project")
                                 }
                             } else {
-                                res.render("project", { projectData: project })
+                                if(project.userId.toString() == mongoUser.id) {
+                                    res.render("project", { projectData: project, owner: true })
+                                } else {
+                                    res.render("project", { projectData: project, owner: false })
+                                }
                             }
                         })
                         .catch((error) => {
@@ -222,7 +226,7 @@ app.post("/newProject", (req, res) => {
                         userId: mongoUser.id,
                         title: req.body.projectTitle,
                         description: req.body.projectDescription,
-                        public: (req.body.public == "on")
+                        public: req.body.public
                     })
                     project.save()
                         .then((savedProject) => {
