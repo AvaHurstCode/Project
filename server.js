@@ -163,18 +163,15 @@ app.get("/sessionLogout", (req, res) => {
 })
 
 app.post("/newProject", (req, res) => {
-    console.log("creating new project")
     const sessionCookie = req.cookies.session || ""
 
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then((user) => {
-            console.log("finding user in database")
             User
                 .findOne({firebase_id: user.uid})
                 .then((mongoUser) => {
-                    console.log("creating new project for user" + mongoUser)
                     let project = new Project({
                         userId: mongoUser.id,
                         title: req.body.title,
