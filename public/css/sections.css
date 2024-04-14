@@ -162,7 +162,7 @@ section {
         }
         .right {
             grid-area: two;
-            animation: from-right 1s forwards;
+            animation: from-right 1s forwards, fade-opacity 1s forwards;
             animation-timeline: view();
             .text{
                 p, h3 {
@@ -172,7 +172,7 @@ section {
         }
         .left {
             grid-area: one;
-            animation: from-left 1s forwards;
+            animation: from-left 1s forwards, fade-opacity 1s forwards;
             animation-timeline: view();
         }
         .text {
@@ -227,12 +227,12 @@ section {
             height: 75svh;
             .ontop {
                 grid-area: one;
-                animation: from-left 1s forwards;
+                animation: from-left 1s forwards, fade-opacity 1s forwards;
                 animation-timeline: view();
             }
             .onbottom {
                 grid-area: two;
-                animation: from-right 1s forwards;
+                animation: from-right 1s forwards, fade-opacity 1s forwards;
                 animation-timeline: view();
             }
             .right {
@@ -262,7 +262,7 @@ section {
 
 @keyframes from-left {
     0% {
-        translate: -100% 0;
+        translate: -50% 0;
     }
     30% {
         translate: 0% 0;
@@ -271,9 +271,21 @@ section {
 
 @keyframes from-right {
     0% {
-        translate: 100% 0;
+        translate: 50% 0;
     }
     30% {
         translate: 0% 0;
+    }
+}
+
+@keyframes fade-opacity {
+    0% {
+        opacity: 0%;
+    }
+    10% {
+        opacity: 0%;
+    }
+    50% {
+        opacity: 100%;
     }
 }
