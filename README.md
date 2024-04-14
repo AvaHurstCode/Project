@@ -2,11 +2,11 @@
 
 ## IMPORTANT:
 
-Due to user accounts being hosted on firebase, running locally will not function as intended without serviceAccountKey.json. Please test using the deployed version at `http://132.145.19.36:3000/`, or if you'd like to run it locally for testing please contact me and I can provide you the required secrets
+Due to user accounts being hosted on firebase, running locally will not function as intended without serviceAccountKey.json. Please test using the deployed version at `minecraft.avahurst.com`, or if you'd like to run it locally for testing please contact me and I can provide you the required secrets
 
 ## General Use Instructions:
 
-- Visit deployed site at `http://132.145.19.36:3000/`
+- Visit deployed site at `minecraft.avahurst.com`
 - Click `Register` to create an account
   - After which you should be taken to your private profile page
 - Feel free to browse public projects or make your own using the nav bar
