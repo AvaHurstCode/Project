@@ -7,7 +7,7 @@ import mongoose from "mongoose"
 import { User } from "./User"
 import { Project } from "./Project"
 
-console.log(process.env.DB_PASSWORD)
+console.log(process.env)
 
 const mongoDB = `mongodb+srv://avahurst:${process.env.DB_PASSWORD}@avahurst.xo18im9.mongodb.net/Project?retryWrites=true&w=majority&appName=AvaHurst`
 
