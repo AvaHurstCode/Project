@@ -44,3 +44,20 @@ nav {
         }
     }
 }
+
+@media (width <= 650px) {
+    nav {
+        flex-direction: column;
+        height: 7rem;
+        .account {
+            padding: 0.5rem 0 0.5rem 0;
+            margin-right: unset;
+        }
+        .logo {
+            margin-left: unset;
+        }
+        ul {
+            border-bottom: 1px solid var(--accent);
+        }
+    }
+}

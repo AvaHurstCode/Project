@@ -15,30 +15,30 @@
     }
 }
 
-
 html {
     color: var(--text-light);
     font-family: poppins;
     overflow-x: hidden;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
     color: var(--text-light);
+    transition: all 0.25s;
+}
+
+h1 {
     font-size: calc(1rem*var(--h-scalar)*var(--h-scalar)*var(--h-scalar)*var(--h-scalar));
 }
 
 h2 {
-    color: var(--text-light);
     font-size: calc(1rem*var(--h-scalar)*var(--h-scalar)*var(--h-scalar));
 }
 
 h3 {
-    color: var(--text-light);
     font-size: calc(1rem*var(--h-scalar)*var(--h-scalar));
 }
 
 h4 {
-    color: var(--text-light);
     font-size: calc(1rem*var(--h-scalar));
 }
 
