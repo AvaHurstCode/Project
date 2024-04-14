@@ -19,6 +19,7 @@
 html {
     color: var(--text-light);
     font-family: poppins;
+    overflow-x: hidden;
 }
 
 h1 {
