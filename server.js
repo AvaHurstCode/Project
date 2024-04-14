@@ -7,7 +7,7 @@ import mongoose from "mongoose"
 import { User } from "./User"
 import { Project } from "./Project"
 
-const mongoDB = "mongodb://localhost:27017/Project"
+const mongoDB = `mongodb+srv://avahurst:${process.env.DB_PASSWORD}@avahurst.xo18im9.mongodb.net/Project?retryWrites=true&w=majority&appName=AvaHurst`
 
 mongoose.connect(mongoDB)
 
@@ -29,14 +29,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 app.use(cookieParser())
-/*
+
 app.use(csrfMiddleware)
 
 app.all("*", (req, res, next) => {
     res.cookie("CSRF-TOKEN", req.csrfToken())
     next()
 })
-*/
+
 
 app.get(["/", "/index"], (req, res) => {
     res.render('index')
@@ -197,7 +197,6 @@ app.post("/sessionLogin", (req, res) => {
                             email: firebase_user.email.toString()
                         })
                     }
-                    result.save()
                 })
             },
             (error) => {
