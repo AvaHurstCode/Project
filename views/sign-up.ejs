@@ -16,6 +16,7 @@
                 <label>Password</label>
                 <input type="password" name="password">
                 <button>Sign Up</button>
+                <div id="error-message" class="error-message"></div>
                 <a href="/login">Already have an account? Log in!</a>
             </form>
         </section>
@@ -66,16 +67,16 @@
                                 return firebase.auth().signOut();
                             })
                             .then(() => {
-                                console.log("User created and signed in successfully");
-                                window.location.assign("/profile");
+                                console.log("User created and signed in successfully")
+                                window.location.assign("/profile")
                             })
                             .catch((error) => {
-                                console.error("Error creating user:", error);
-                                // Handle error appropriately, e.g., display error message to the user
+                                console.error("Error creating user:", error)
+                                document.getElementById("error-message").innerText = error.message
                             });
                     });
         
-                return false; // Move this inside the event listener callback function
+                return false;
             });
         </script>
     </main>

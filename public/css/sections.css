@@ -56,6 +56,9 @@ section {
             button {
                 margin-bottom: var(--spacing-xs);
             }
+            .error-message {
+                color: red;
+            }
         }
     }
     &.signup {
@@ -78,6 +81,9 @@ section {
             }
             button {
                 margin-bottom: var(--spacing-xs);
+            }
+            .error-message {
+                color: red;
             }
         }
     }

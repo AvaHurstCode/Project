@@ -16,6 +16,7 @@
                 <label>Password</label>
                 <input type="password" name="password">
                 <button>Log in</button>
+                <div id="error-message" class="error-message"></div>
                 <a href="/signup">Don't have an account? Sign Up!</a>
             </form>
         </section>
@@ -71,6 +72,7 @@
                             })
                             .catch((error) => {
                                 console.error("Error logging in user:", error);
+                                document.getElementById("error-message").innerText = error.message
                             });
                     });
         
