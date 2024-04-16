@@ -169,12 +169,39 @@ app.get("/viewer/:projectId", (req, res) => {
 })
 
 app.get("/browse", (req, res) => {
+
     Project.find({ public: true })
         .then((projects) => {
             res.render("browse", { projects: projects })
         })
 })
 
+app.get("/browse/self", (req, res) => {
+    const sessionCookie = req.cookies.session || ""
+    console.log("route accessed")
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then((user) => {
+            console.log("verified user")
+            User
+                .findOne({ firebase_id: user.uid })
+                .then((mongoUser) => {
+                    console.log("")
+                    Project.find({ userId: mongoUser.id})
+                        .then((projects) => {
+                            res.render("browseOwn", { projects: projects })
+                        })
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        })
+        .catch((error) => {
+            res.redirect("/login");
+        })
+})
 
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString()

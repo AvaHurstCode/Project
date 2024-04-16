@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("includes/head", {title: "browse"}) %>
+</head>
+<body>
+    <%- include("includes/nav") %>
+    <header class="browse">
+        <h1>Browse your projects</h1>
+    </header>
+    <main>
+        <section class="browse top">
+            <%- include("includes/card", {projects: projects}) %>
+        </section>
+    </main>
+</body>
+</html>
