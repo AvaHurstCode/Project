@@ -11,7 +11,21 @@ Due to user accounts being hosted on firebase, running locally will not function
   - After which you should be taken to your private profile page
 - Feel free to browse public projects or make your own using the nav bar
 - Public projects will appear under the browse page in a list
-- Visiting your own public project will allow you to
+- Visiting your own public project will allow you to edit said project by clicking the link under the subheading
+- Visiting your own profile will let you browse your own projects by clicking a link - both public and private
+
+## Running Locally:
+
+- Please read above important notice before attempting
+- Clone project
+- install bun
+- run `bun i` to install all required modules
+- seperately add secrets obtained from me
+- run `bun server.js` to run project on `localhost:3000`
+
+#### Notice:
+
+- Running locally using above instructions will still use the remote database for users and projects
 
 # Project Showcase and Project Referencing Site
 
