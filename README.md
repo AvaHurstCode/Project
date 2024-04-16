@@ -29,4 +29,4 @@ Due to user accounts being hosted on firebase, running locally will not function
 
 # Project Showcase and Project Referencing Site
 
-A website designed for users to showcase their art (somewhat similar to behance) but also allows them to create vast reference canvases filled with images, colourschemes, text and more (tbd)
+A website designed for users to showcase their art (somewhat similar to behance) but also allows them to create vast reference canvases filled with images, colourschemes, text and more (to be added in the future)
