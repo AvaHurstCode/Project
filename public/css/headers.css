@@ -71,6 +71,12 @@ header {
         align-items: center;
         height: 10rem;
     }
+    &.new-project {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20rem;
+    }
 }
 
 @keyframes fade-in {

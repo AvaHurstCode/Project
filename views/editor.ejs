@@ -21,6 +21,7 @@
                 <input type="text" name="projectTitle" value="<%= projectData.title %>">
                 <label>Project Description:</label>
                 <input type="text" name="projectDescription" value="<%= projectData.description %>">
+                <textarea name="markdownContent"><%= projectData.markdownContent %></textarea>
                 <label>Make Public:</label>
                 <input type="checkbox" name="public" <% if (projectData.public) { %>checked<% }  %>>
                 <button>Update</button>

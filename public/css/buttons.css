@@ -2,13 +2,31 @@
     font-size: 2rem;
     transition: all 0.25s;
     height: fit-content;
+    background-color: transparent;
+    color: var(--text-light);
     a {
-        color: black;
+        color: var(--text-light);
         border-radius: 100rem;
         padding: 0.5rem 1rem 0.5rem 1rem;
         height: 100%;
-        border: solid 0.25rem black;
+        border: solid 0.25rem var(--text-light);
         transition: all 0.25s;
+    }
+    &:not(:has(a)) {
+        color: var(--text-light);
+        border-radius: 100rem;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        height: 100%;
+        border: solid 0.25rem var(--text-light);
+        transition: all 0.25s;
+    }
+    a:hover {
+        color: var(--text-light-gray);
+        border: solid 0.25rem var(--text-light-gray);
+    }
+    &:not(:has(a)):hover {
+        color: var(--text-light-gray);
+        border: solid 0.25rem var(--text-light-gray);
     }
     &.cta {
         a {

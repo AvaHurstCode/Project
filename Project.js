@@ -4,6 +4,7 @@ const projectSchema = new mongoose.Schema({
     userId: mongoose.Schema.Types.ObjectId,
     title: String,
     description: String,
+    markdownContent: String,
     public: Boolean,
 })
 

@@ -6,6 +6,8 @@ import admin from "firebase-admin"
 import mongoose from "mongoose"
 import { User } from "./User"
 import { Project } from "./Project"
+import { sanitize } from './sanitizer.js';
+import markdownlint from "markdownlint"
 
 const mongoDB = `mongodb+srv://avahurst:${process.env.DB_PASSWORD}@avahurst.xo18im9.mongodb.net/Project?retryWrites=true&w=majority&appName=AvaHurst`
 
@@ -37,6 +39,14 @@ app.all("*", (req, res, next) => {
     next()
 })
 
+app.use((req, res, next) => {
+    Object.keys(req.body).forEach(key => {
+        if (typeof req.body[key] === 'string') {
+            req.body[key] = sanitize(req.body[key]);
+        }
+    });
+    next();
+});
 
 app.get(["/", "/index"], (req, res) => {
     res.render('index')
@@ -213,6 +223,15 @@ app.get("/sessionLogout", (req, res) => {
 
 app.post("/newProject", (req, res) => {
     const sessionCookie = req.cookies.session || ""
+    const markdownContent = req.body.markdownContent || "";
+    const lintResults = markdownlint.sync({
+        strings: { markdownContent },
+        config: { "default": true }
+    });
+
+    if (lintResults.length > 0) {
+        return res.status(400).json({ message: "Markdown content validation failed", errors: lintResults });
+    }
 
     admin
         .auth()
@@ -225,6 +244,7 @@ app.post("/newProject", (req, res) => {
                         userId: mongoUser.id,
                         title: req.body.projectTitle,
                         description: req.body.projectDescription,
+                        markdownContent: req.body.markdownContent,
                         public: req.body.public
                     })
                     project.save()
@@ -243,6 +263,15 @@ app.post("/newProject", (req, res) => {
 
 app.post("/updateProject/:projectId", (req, res) => {
     const sessionCookie = req.cookies.session || ""
+    const markdownContent = req.body.markdownContent || "";
+    const lintResults = markdownlint.sync({
+        strings: { markdownContent },
+        config: { "default": true }
+    });
+
+    if (lintResults.length > 0) {
+        return res.status(400).json({ message: "Markdown content validation failed", errors: lintResults });
+    }
 
     admin
         .auth()
@@ -253,6 +282,7 @@ app.post("/updateProject/:projectId", (req, res) => {
                     {
                         title: req.body.projectTitle,
                         description: req.body.projectDescription,
+                        markdownContent: req.body.markdownContent,
                         public: req.body.public
                     })
                 .catch((error) => {

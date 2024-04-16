@@ -6,16 +6,22 @@
 </head>
 <body>
     <%- include("includes/nav") %>
-    <h1>New Project</h1>
-    <form id="new-project">
-        <label>Title:</label>
-        <input type="text" value="Untitled Project 1" name="projectTitle" required>
-        <label>Description:</label>
-        <input type="text" name="projectDescription" required>
-        <label>Make public:</label>
-        <input type="checkbox" name="public">
-        <button>Create Project</button>
-    </form>
+    <header class="new-project">
+        <h1>New Project</h1>
+    </header>
+    <section class="new-project">
+        <form id="new-project">
+            <label>Title:</label>
+            <input type="text" value="Untitled Project 1" name="projectTitle" required>
+            <label>Description:</label>
+            <input type="text" name="projectDescription" required>
+            <label>Project Text (markdown):</label>
+            <textarea name="markdownContent"></textarea>
+            <label>Make public:</label>
+            <input type="checkbox" name="public">
+            <button>Create Project</button>
+        </form>
+    </section>
     <script>
         document
             .getElementById("new-project")

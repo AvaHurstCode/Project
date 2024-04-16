@@ -9,7 +9,7 @@ section {
     margin-right: var(--margin);
     opacity: 0%;
     animation: fade-in-delay 1s ease forwards;
-    animation-delay: 1s;
+    animation-delay: 0.5s;
     &.description {
         color: var(--text-light);
         h2 {
@@ -54,7 +54,7 @@ section {
                 margin-bottom: var(--spacing-m);
             }
             button {
-                margin-bottom: var(--spacing-xs);
+                margin-bottom: var(--spacing-s);
             }
             .error-message {
                 color: red;
@@ -80,10 +80,30 @@ section {
                 margin-bottom: var(--spacing-m);
             }
             button {
-                margin-bottom: var(--spacing-xs);
+                margin-bottom: var(--spacing-s);
             }
             .error-message {
                 color: red;
+            }
+        }
+    }
+    &.new-project {
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            label {
+                margin-bottom: var(--spacing-xs);
+            }
+            input {
+                margin-bottom: var(--spacing-m);
+            }
+            button {
+                margin-bottom: var(--spacing-xs);
+            }
+            textarea {
+                margin-bottom: var(--spacing-m);
+                height: 10rem;
             }
         }
     }
@@ -100,6 +120,10 @@ section {
             }
             button {
                 margin-bottom: var(--spacing-xs);
+            }
+            textarea {
+                margin-bottom: var(--spacing-m);
+                height: 10rem;
             }
         }
     }
