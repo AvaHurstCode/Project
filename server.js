@@ -4,16 +4,28 @@ import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
 import admin from "firebase-admin"
 import mongoose from "mongoose"
-import { User } from "./User"
-import { Project } from "./Project"
+import { User } from "./User.js"
+import { Project } from "./Project.js"
 import { sanitize } from './sanitizer.js';
 import markdownlint from "markdownlint"
+import fs from 'fs';
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+const serviceAccountJson = fs.readFileSync('./serviceAccountKey.json', 'utf8');
+const serviceAccount = JSON.parse(serviceAccountJson);
+
+
 
 const mongoDB = `mongodb+srv://avahurst:${process.env.DB_PASSWORD}@avahurst.xo18im9.mongodb.net/Project?retryWrites=true&w=majority&appName=AvaHurst`
 
-mongoose.connect(mongoDB)
-
-const serviceAccount = require("./serviceAccountKey.json")
+try {
+    await mongoose.connect(mongoDB)
+    console.log("db conntected")
+} catch (error) {
+    console.log(error)
+}
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
