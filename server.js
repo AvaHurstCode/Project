@@ -19,6 +19,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 })
 
+
 const csrfMiddleware = csrf({ cookie: true })
 
 const PORT = process.env.PORT || 3000
@@ -31,7 +32,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 app.use(cookieParser())
-
+/*
 app.use(csrfMiddleware)
 
 app.all("*", (req, res, next) => {
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
     });
     next();
 });
+*/
 
 app.get(["/", "/index"], (req, res) => {
     res.render('index')
